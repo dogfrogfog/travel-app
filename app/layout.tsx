@@ -16,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        {children}
+        <main className='w-2/3 m-auto'>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

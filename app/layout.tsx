@@ -1,3 +1,5 @@
+import { ClerkProvider } from '@clerk/nextjs/app-beta'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import './globals.css'
@@ -14,13 +16,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        <main className='w-2/3 m-auto'>
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <ClerkProvider>
+        <body>
+          <Header />
+          <main className='w-2/3 m-auto'>
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </ClerkProvider>
     </html>
   )
 }

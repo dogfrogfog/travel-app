@@ -17,6 +17,7 @@
     "schema": "./db/schema.prisma"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.16.4",
     "@prisma/client": "^4.13.0",
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",

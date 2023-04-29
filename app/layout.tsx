@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <ClerkProvider>
         <body>
+          {/* @ts-expect-error Async Server Component */}
           <Header />
           <main className='w-2/3 m-auto'>
             {children}

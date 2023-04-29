@@ -9,9 +9,12 @@
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:generate": "prisma generate --schema=./db/schema.prisma",
-    "migrate-dev": "prisma migrate dev --preview-feature --schema=./db/schema.prisma",
-    "migrate-deploy": "prisma migrate deploy --preview-feature --schema=./db/schema.prisma"
+    "prisma:generate": "prisma generate",
+    "migrate-dev": "prisma migrate dev --preview-feature",
+    "migrate-deploy": "prisma migrate deploy --preview-feature"
+  },
+  "prisma": {
+    "schema": "./db/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",

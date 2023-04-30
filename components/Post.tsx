@@ -1,7 +1,8 @@
 import { Post } from '@/db'
+import DeletePostButton from '@/components/DeletePostButton'
 
 type PostProps = {
-    post: Pick<Post, 'title' | 'content' | 'userId'>;
+    post: Omit<Post, 'createdAt' | 'updatedAt'>;
     currentUserId?: string;
 }
 
@@ -16,7 +17,7 @@ export default function Post({ currentUserId, post }: PostProps) {
                 ))}
             </div>
             {currentUserId === post.userId && (
-                <button className='p-2 rounded bg-red-300 text-white'>Delete</button>
+                <DeletePostButton id={post.id} />
             )}
         </div>
     )

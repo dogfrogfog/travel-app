@@ -6,7 +6,7 @@ import { Post } from '@/db'
 
 const createPost = async (post: Post) => {
     try {
-        await fetch('/api/post/new', {
+        await fetch('/api/post', {
           method: 'POST',
           body: JSON.stringify(post)
       });

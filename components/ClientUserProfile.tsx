@@ -6,11 +6,11 @@ export default function ClientUserProfile() {
     const router = useRouter()
     return (
         <div>
-            <button className='p-4 bg-red-500'>
                 <SignOutButton signOutCallback={() => router.push('/')}>
-                    Sign out
+                    <span className='block p-4 bg-red-500 mb-12 '>
+                        Sign out
+                    </span>    
                 </SignOutButton>
-            </button>
             <UserProfile />
         </div>
     );

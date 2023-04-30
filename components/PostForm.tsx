@@ -24,8 +24,8 @@ export default function PostForm() {
             <CustomForm
                 onSubmit={async (values: any) => {
                     await createPost({
-                        ...values,
-                        authorEmail: user?.primaryEmailAddress?.emailAddress
+                      ...values,
+                      userId: user?.id,
                     })
                 }}
             />
@@ -44,7 +44,7 @@ const CustomForm = ({ onSubmit }: CustomFormProps) => (
   <>
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({ handleSubmit, form, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
           <Field name="title" validate={required}>
             {({ input, meta }) => (

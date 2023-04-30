@@ -1,3 +1,4 @@
+import { auth } from '@clerk/nextjs/app-beta'
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
@@ -15,11 +16,14 @@ export async function POST(request: Request) {
     return new NextResponse('ok');
 }
 
+// only logged in users can update posts
+// todo: should add auth to delete request 
 export async function DELETE(request: Request) {
+    const { user } = auth();
     const id = parseInt(request.url.split('?id=')[1]);
 
-    if(!id) {
-        return new NextResponse('wrong id');
+    if(!id && !user) {
+        return new NextResponse('cant update');
     }
 
     try {

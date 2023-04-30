@@ -1,4 +1,5 @@
-import HeaderRightLink from "@/components/HeaderRightLink"
+import { UserButton, SignedOut, SignedIn } from "@clerk/nextjs/app-beta"
+import Link from "next/link"
 
 export default async function Header() {
   return (
@@ -9,8 +10,18 @@ export default async function Header() {
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">logo</span>
                 </a>
                 <div className="flex items-center lg:order-2">
-                    <div className="w-24 flex justify-end">
-                        <HeaderRightLink />
+                    <div className="w-24 flex justify-end align-center">
+                        <SignedOut>
+                            <Link href="/sign-in">
+                                Sign in
+                            </Link>
+                        </SignedOut>
+                        <SignedIn>
+                            <Link href="/profile" className="bg-yellow-400">
+                                profile
+                            </Link>
+                            <UserButton />
+                        </SignedIn>
                     </div>
                 </div>
                 <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">

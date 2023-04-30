@@ -1,20 +1,20 @@
-export default function Home() {
+import { currentUser } from "@clerk/nextjs/app-beta"
+import db from '@/db'
+import Post from '@/components/Post'
+
+export default async function Home() {
+  const user = await currentUser();
+  const allPosts = await db.post.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
   return (
     <div>
-      <div className="h-72 w-full bg-slate-50 border-4 border-slate-600 mb-8">
-        <h1>some content 1</h1>
-      </div>
-      <div className="h-72 w-full bg-slate-50 border-4 border-slate-600 mb-8">
-        <h1>some content 2</h1>
-      </div>
-      <div className="h-72 w-full bg-slate-50 border-4 border-slate-600 mb-8">
-        <h1>some content 3</h1>
-      </div>
-      <div className="h-72 w-full bg-slate-50 border-4 border-slate-600 mb-8">
-        <h1>some content 4</h1>
-      </div>
-      <div className="h-72 w-full bg-slate-50 border-4 border-slate-600 mb-4">
-        <h1>some content 5</h1>
+      <div>
+        <h1 className="text-4xl font-bold mb-8">All Posts</h1>
+        {allPosts.length && allPosts.map(post => <Post key={post.id} post={post} currentUserId={user?.id} />)}
       </div>
     </div>
   )

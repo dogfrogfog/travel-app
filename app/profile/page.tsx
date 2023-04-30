@@ -23,13 +23,13 @@ async function CurrentUserPosts() {
 
     const posts = await db.post.findMany({
         where: {
-            userId: user?.id,
+            userId: user.id,
         }
     })  
-    
+
     return posts.map(post => 
         <React.Fragment key={post.id}>
-            <Post post={post} />
+            <Post currentUserId={user.id} post={post} />
         </React.Fragment>
     );    
 }

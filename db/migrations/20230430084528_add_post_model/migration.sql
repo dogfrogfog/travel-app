@@ -20,4 +20,4 @@ CREATE TABLE "Post" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Post_authorEmail_key" ON "Post"("authorEmail");
+CREATE UNIQUE INDEX "Post_title_authorEmail_key" ON "Post"("title", "authorEmail");

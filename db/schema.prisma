@@ -16,5 +16,7 @@ model Post {
   updatedAt   DateTime @updatedAt
   title       String
   content     String
-  authorEmail String   @unique
+  authorEmail String
+
+  @@unique([title, authorEmail])
 }

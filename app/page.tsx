@@ -2,7 +2,7 @@ import { currentUser } from "@clerk/nextjs/app-beta"
 import db from '@/db'
 import Post from '@/components/Post'
 import Filters from '@/components/Filters'
-import Title from '@/components/ui/Title'
+import { Title } from '@/components/ui/title'
 
 export default async function Home() {
   const user = await currentUser();

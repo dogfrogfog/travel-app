@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import { Post } from '@/db'
 import DeletePostButton from '@/components/DeletePostButton'
+import { Badge } from '@/components/ui/badge'
 
 type PostProps = {
     post: Omit<Post, 'createdAt' | 'updatedAt'>;
@@ -8,12 +10,16 @@ type PostProps = {
 
 export default function Post({ currentUserId, post }: PostProps) {
     return (
-        <div className="w-3/4 m-auto bg-slate-200 mb-8 p-2 rounded">
+        <div className="bg-slate-200 mb-4 p-2 rounded">
             <h3 className="text-xl mb-4 bold">{post.title}</h3>
             <p className="mb-4">{post.content}</p>
-            <div className='flex justify-start mb-4'>
-                {['tag1', 'tag2', 'tag3', 'tag4'].map(v => (
-                    <span key={v} className='py-2 px-4 bg-blue-400 border-2 border-slate-600 mr-4'>{v}</span>
+            <div className='flex justify-start'>
+                {['travel', 'hike', 'wine', 'discussions'].map(tag => (
+                    <Badge key={tag} className='mr-2'>
+                        <Link href={`/tags/${tag}`}>
+                            {tag}
+                        </Link>
+                    </Badge>
                 ))}
             </div>
             {currentUserId === post.userId && (

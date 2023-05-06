@@ -1,6 +1,8 @@
 import { currentUser } from "@clerk/nextjs/app-beta"
 import db from '@/db'
 import Post from '@/components/Post'
+import Filters from '@/components/Filters'
+import { Title } from '@/components/ui/title'
 
 export default async function Home() {
   const user = await currentUser();
@@ -12,10 +14,10 @@ export default async function Home() {
 
   return (
     <div>
-      <div>
-        <h1 className="text-4xl font-bold mb-8">All Posts</h1>
-        {allPosts.length && allPosts.map(post => <Post key={post.id} post={post} currentUserId={user?.id} />)}
-      </div>
+      <Title>filters</Title>
+      <Filters />
+      <Title>all posts</Title>
+      {allPosts.length && allPosts.map(post => <Post key={post.id} post={post} currentUserId={user?.id} />)}
     </div>
   )
 }

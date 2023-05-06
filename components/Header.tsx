@@ -1,5 +1,6 @@
 import { UserButton, SignedOut, SignedIn } from "@clerk/nextjs/app-beta"
 import Link from "next/link"
+import { buttonVariants } from '@/components/ui/Button'
 
 export default async function Header() {
   return (
@@ -10,9 +11,9 @@ export default async function Header() {
             </Link>
             <div className="flex grow justify-end">
                 <SignedOut>
-                    <Link href="/login" className="block text-xl font-semibold">
-                        Login
-                    </Link>
+                <Link href="/login" className={buttonVariants({ variant: "outline" })}>
+                    login
+                </Link>
                 </SignedOut>
                 <SignedIn>
                     <Link href="/profile" className="block bg-yellow-400">

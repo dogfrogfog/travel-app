@@ -1,6 +1,6 @@
 import { UserButton, SignedOut, SignedIn } from "@clerk/nextjs/app-beta"
 import Link from "next/link"
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '../components/ui/button' // fix path
 
 export default async function Header() {
   return (

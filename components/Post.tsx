@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Post } from '@/db'
 import DeletePostButton from '@/components/DeletePostButton'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '../components/ui/badge'  // fix path
 
 type PostProps = {
     post: Omit<Post, 'createdAt' | 'updatedAt'>;

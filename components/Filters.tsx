@@ -1,4 +1,4 @@
-import { Input } from '@/components/ui/input'
+import { Input } from '../components/ui/input'  // fix path
 
 export default function Filters() {
     return (

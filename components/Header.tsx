@@ -10,8 +10,8 @@ export default async function Header() {
             </Link>
             <div className="flex grow justify-end">
                 <SignedOut>
-                    <Link href="/sign-in" className="block text-xl font-semibold">
-                        Sign in
+                    <Link href="/login" className="block text-xl font-semibold">
+                        Login
                     </Link>
                 </SignedOut>
                 <SignedIn>

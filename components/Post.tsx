@@ -8,7 +8,7 @@ type PostProps = {
 
 export default function Post({ currentUserId, post }: PostProps) {
     return (
-        <div className="w-3/4 m-auto bg-slate-200 mb-8 p-2 rounded">
+        <div className="bg-slate-200 mb-4 p-2 rounded">
             <h3 className="text-xl mb-4 bold">{post.title}</h3>
             <p className="mb-4">{post.content}</p>
             <div className='flex justify-start mb-4'>

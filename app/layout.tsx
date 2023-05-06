@@ -20,7 +20,7 @@ export default function RootLayout({
         <body>
           {/* @ts-expect-error Async Server Component */}
           <Header />
-          <main className='w-2/3 m-auto'>
+          <main className='container m-auto'>
             {children}
           </main>
           <Footer />

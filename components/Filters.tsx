@@ -1,13 +1,11 @@
+import { Input } from '@/components/ui/input'
+
 export default function Filters() {
     return (
-        <div className="bg-green-300 mb-12 p-2 rounded">
-            <input type="text" placeholder="filter 1" />
-            <br />
-            <br />
-            <input type="text" placeholder="filter 2" />
-            <br />
-            <br />
-            <input type="text" placeholder="filter 3" />
+        <div className="bg-green-300 mb-12 p-2 rounded flex">
+            <Input placeholder='filter' className='bg-white w-1/3 m-2' />
+            <Input placeholder='filter' className='bg-white w-1/3 m-2' />
+            <Input placeholder='filter' className='bg-white w-1/3 m-2' />
         </div>
     )
 }

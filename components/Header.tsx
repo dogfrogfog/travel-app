@@ -3,42 +3,25 @@ import Link from "next/link"
 
 export default async function Header() {
   return (
-    <header>
-        <nav className="bg-slate-200 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-            <div className="h-12 flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="/" className="flex items-center">
-                    <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">logo</span>
-                </a>
-                <div className="flex items-center lg:order-2">
-                    <div className="w-24 flex justify-end align-center">
-                        <SignedOut>
-                            <Link href="/sign-in">
-                                Sign in
-                            </Link>
-                        </SignedOut>
-                        <SignedIn>
-                            <Link href="/profile" className="bg-yellow-400">
-                                profile
-                            </Link>
-                            <UserButton />
-                        </SignedIn>
-                    </div>
-                </div>
-                <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                        <li>
-                            <a href="#" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Company</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                        </li>
-                    </ul>
-                </div>
+    <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur">
+        <div className="flex h-14 items-center px-4">
+            <Link href="/" className="w-32 text-xl font-semibold bg-yellow-200">
+                logo
+            </Link>
+            <div className="flex grow justify-end">
+                <SignedOut>
+                    <Link href="/sign-in" className="block text-xl font-semibold">
+                        Sign in
+                    </Link>
+                </SignedOut>
+                <SignedIn>
+                    <Link href="/profile" className="block bg-yellow-400">
+                        profile
+                    </Link>
+                    <UserButton />
+                </SignedIn>
             </div>
-        </nav>
+        </div>
     </header>
   )
 }

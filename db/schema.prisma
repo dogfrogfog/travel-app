@@ -17,7 +17,7 @@ model Post {
   title       String
   content     String
   userId      String
-  destination String?
+  destination String
   startDate   DateTime?
   endDate     DateTime?
 

@@ -16,7 +16,7 @@ export async function GET(request: Request) {
             },
         });
 
-        return new NextResponse(JSON.stringify({ posts, userId: user.id }));
+        return new NextResponse(JSON.stringify(posts));
     } catch (error) {
         return new NextResponse('error');
     }    

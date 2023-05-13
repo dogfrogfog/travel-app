@@ -5,20 +5,22 @@ import { Post as PostType } from '@/db'
 import { fetcher } from '@/lib/utils'
 import Post from '@/components/Post'
 import PostForm from '@/components/PostForm'
+import DeletePostButton from '@/components/DeletePostButton'
 
 type PostsListProps = {
-    initialData: { posts: PostType[], userId: string }
+    initialPosts: PostType[]
 }
 
-function PostsList ({ initialData }: PostsListProps) {
-    const { data, error, mutate } = useSWR('/api/posts/getAllPosts', fetcher, { fallbackData: initialData })
+function PostsList ({ initialPosts }: PostsListProps) {
+    const { data, error, mutate } = useSWR('/api/posts/getAllPosts', fetcher, { fallbackData: initialPosts })
 
     return (
         <>
             <PostForm mutate={mutate} />
-            {data.posts?.map((post: PostType) => 
+            {data?.map((post: PostType) => 
                 <Fragment key={post.id}>
-                    <Post mutate={mutate} currentUserId={data.userId} post={post} />
+                    <Post post={post} />
+                    <DeletePostButton mutate={mutate} id={post.id} />
                 </Fragment>
             )}
         </>

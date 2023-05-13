@@ -1,5 +1,6 @@
 "use client"
 import { Post } from '@/db'
+import { SignedIn } from '@clerk/nextjs'
 
 const deletePost = async (id: number) => {
     try {
@@ -23,6 +24,8 @@ export default function DeletePostButton({ id, mutate }: DeletePostButtonProps) 
     }
 
     return (
-        <button onClick={onClick} className='p-2 rounded bg-red-300 text-white'>Delete</button>
+        <SignedIn>
+            <button onClick={onClick} className='p-2 rounded bg-red-300 text-white'>Delete</button>
+        </SignedIn>
     )
 }

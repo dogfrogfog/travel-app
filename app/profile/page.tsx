@@ -26,5 +26,5 @@ async function CurrentUserPosts() {
         }
     })
 
-    return <PostsList initialData={{ posts, userId: user.id }}  />
+    return <PostsList initialPosts={posts}  />
 }

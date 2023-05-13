@@ -1,10 +1,12 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs"
 import { SignedIn } from '@clerk/nextjs'
+import { DateRange } from "react-day-picker"
 import { Form, Field } from 'react-final-form'
 import { Post } from '@/db'
+import { DatePickerWithRange } from '@/components/ui/datePickerWithRange'
 
-const createPost = async (post: Post) => {
+const createPost = async (post: Pick<Post, 'content' | 'title' | 'destination' | 'startDate' |'endDate' | 'userId'>) => {
     try {
         await fetch('/api/post', {
           method: 'POST',
@@ -19,6 +21,7 @@ type PostFormProps = {
     mutate: () => Promise<void>
 }
 
+
 export default function PostForm({ mutate }: PostFormProps) {
     const { user } = useUser();
 
@@ -26,18 +29,24 @@ export default function PostForm({ mutate }: PostFormProps) {
         <SignedIn>
             <p className="text-2xl bg-yellow-200">Create new ports</p>
             <CustomForm
-                onSubmit={async (values: any) => {
-                  try {
-                    await createPost({
-                      ...values,
-                      userId: user?.id,
-                    })
-
-                    await mutate()
-                  } catch (error) {
-                    console.error(error)
-                  }
+                onSubmit={async (values: Pick<Post, 'title' | 'content' | 'destination'> & { dateRange: DateRange | undefined }) => {
+                  if (user) {
+                    const formattedDate = {
+                      title: values.title.trim(),
+                      content: values.content.trim(),
+                      destination: values.destination.trim(),
+                      startDate: values.dateRange?.from || null,
+                      endDate: values.dateRange?.to || null,
+                      userId: user.id,
+                    }
+                      try {
+                        await createPost(formattedDate)
+                        await mutate()
+                      } catch (error) {
+                        console.error(error)
+                      }
                 }}
+              }
             />
         </SignedIn>
     )
@@ -51,10 +60,9 @@ type CustomFormProps = {
 }
 
 const CustomForm = ({ onSubmit }: CustomFormProps) => (
-  <>
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, form, submitting, pristine }) => (
+      render={({ handleSubmit, form, submitting, pristine,  }) => (
         <form onSubmit={handleSubmit}>
           <Field name="title" validate={required}>
             {({ input, meta }) => (
@@ -74,6 +82,29 @@ const CustomForm = ({ onSubmit }: CustomFormProps) => (
               </div>
             )}
           </Field>
+          <Field name="destination" validate={required}>
+            {({ meta, input }) => (
+              <>
+                <input {...input} className="border-4 border-slate-600 text-xl" type="text" placeholder="Destination" />
+                {/* // todo: add real city select */}
+                {/* <select {...input} className="border-4 border-slate-600 text-xl" placeholder="destination">
+                  <option value="ny">ny</option>
+                  <option value="chicago">chicago</option>
+                  <option value="connecticut">connecticut</option>
+                  <option value="boston">boston</option>
+                </select> */}
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </>
+            )}
+          </Field>
+          <Field name="dateRange">
+            {({ meta, input }) => (
+              <>
+                <DatePickerWithRange onSelect={(dateRange) => input.onChange(dateRange)} />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </>
+            )}
+          </Field>
           <div className="flex">
             <button className="p-4 bg-green-200" type="submit" disabled={submitting}>
               Submit
@@ -90,5 +121,4 @@ const CustomForm = ({ onSubmit }: CustomFormProps) => (
         </form>
       )}
     />
-  </>
-)
+  )

@@ -5,11 +5,14 @@ import db from '@/db'
 export async function POST(request: Request) {
     const data = await request.json()
 
+    console.log(data)
+
     try {
         await db.post.create({
             data,
         })
     } catch (error) {
+        console.log(error);
         return new NextResponse('error');
     }
     

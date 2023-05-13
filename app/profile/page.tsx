@@ -1,13 +1,12 @@
 import React from 'react'
 import { currentUser } from "@clerk/nextjs/app-beta"
-import PostForm from '@/components/PostForm'
-import Post from '@/components/Post'
 import db from '@/db'
+
+import PostsList from './PostsList'
 
 export default async function Profile() {
     return (
         <div className='h-screen'>
-            <PostForm />
             {/* @ts-ignore */}
             <CurrentUserPosts />
         </div>
@@ -25,11 +24,7 @@ async function CurrentUserPosts() {
         where: {
             userId: user.id,
         }
-    })  
+    })
 
-    return posts.map(post => 
-        <React.Fragment key={post.id}>
-            <Post currentUserId={user.id} post={post} />
-        </React.Fragment>
-    );    
+    return <PostsList initialData={{ posts, userId: user.id }}  />
 }

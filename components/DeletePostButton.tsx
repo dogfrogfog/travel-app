@@ -1,5 +1,6 @@
 "use client"
 import { Post } from '@/db'
+import { SignedIn } from '@clerk/nextjs'
 
 const deletePost = async (id: number) => {
     try {
@@ -11,14 +12,20 @@ const deletePost = async (id: number) => {
     }
 }
 
-type DeletePostButtonProps = Pick<Post, 'id'>;
+type DeletePostButtonProps = Pick<Post, 'id'> & {
+    mutate: () => Promise<void>
+};
 
-export default function DeletePostButton({ id }: DeletePostButtonProps) {
+export default function DeletePostButton({ id, mutate }: DeletePostButtonProps) {
     const onClick = async () => {
-        await deletePost(id);
+        await deletePost(id)
+
+        await mutate()
     }
 
     return (
-        <button onClick={onClick} className='p-2 rounded bg-red-300 text-white'>Delete</button>
+        <SignedIn>
+            <button onClick={onClick} className='p-2 rounded bg-red-300 text-white'>Delete</button>
+        </SignedIn>
     )
 }

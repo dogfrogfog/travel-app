@@ -15,7 +15,11 @@ const createPost = async (post: Post) => {
     }
 }
 
-export default function PostForm() {
+type PostFormProps = {
+    mutate: () => Promise<void>
+}
+
+export default function PostForm({ mutate }: PostFormProps) {
     const { user } = useUser();
 
     return (
@@ -23,10 +27,16 @@ export default function PostForm() {
             <p className="text-2xl bg-yellow-200">Create new ports</p>
             <CustomForm
                 onSubmit={async (values: any) => {
+                  try {
                     await createPost({
                       ...values,
                       userId: user?.id,
                     })
+
+                    await mutate()
+                  } catch (error) {
+                    console.error(error)
+                  }
                 }}
             />
         </SignedIn>

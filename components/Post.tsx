@@ -10,15 +10,17 @@ type PostProps = {
 export default function Post({ post }: PostProps) {
     return (
         <div className="bg-slate-200 mb-4 p-2 rounded">
-            <h3 className="text-xl mb-4 bold">{post.title}</h3>
-            <p className="mb-4">{post.content}</p>
+            <h3 className="text-xl mb-4 bold">Trip title: {post.title}</h3>
+            <p className="mb-4">Trip description: {post.content}</p>
             {post.startDate || post.endDate ? (
                 <p className="mb-4">
-                {`from: ${post?.startDate && format(new Date(post.startDate), 'dd-MM')} `}
-                {post?.endDate && `to: ${format(new Date(post.endDate), 'dd-MM')} `}
+                Trip dates: 
+                {`from ${post?.startDate && format(new Date(post.startDate), 'dd.MM.yyyy')} `}
+                {post?.endDate && `to ${format(new Date(post.endDate), 'dd.MM.yyyy')} `}
                 </p>
             ) : 'no clear dates'}
             <div className='flex justify-start'>
+                Trip tags:
                 {['travel', 'hike', 'wine', 'discussions'].map(tag => (
                     <Badge key={tag} className='mr-2'>
                         <Link href={`/tags/${tag}`}>

@@ -1,7 +1,5 @@
 import db from '@/db'
-import Post from '@/components/Post'
-import Filters from '@/components/Filters'
-import { Title } from '@/components/ui/title'
+import FiltersWithPosts from './FiltersWithPosts'
 
 export default async function Home() {
   const allPosts = await db.post.findMany({
@@ -12,10 +10,7 @@ export default async function Home() {
 
   return (
     <div>
-      <Title>filters</Title>
-      <Filters />
-      <Title>all posts</Title>
-      {allPosts.length && allPosts.map(post => <Post key={post.id} post={post} />)}
+      <FiltersWithPosts allPosts={allPosts} />
     </div>
   )
 }

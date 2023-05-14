@@ -1,11 +1,11 @@
+import { auth } from '@clerk/nextjs/app-beta'
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
 // only logged in users can update posts
 // todo: should add auth to delete request 
 export async function DELETE(request: Request) {
-    // @ts-ignore
-    const { userId } = getAuth(request)
+    const { userId } = auth()
 
     if(!userId) {
         return new NextResponse('user not authenticated');

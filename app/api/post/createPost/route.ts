@@ -1,15 +1,12 @@
-import { getAuth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/app-beta";
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
 export async function POST(request: Request) {
-    // @ts-ignore
-    const { userId } = getAuth(request)
-
-    // @ts-ignore
+    const user = await currentUser();
     const data = await request.json()
 
-    if (!userId) {
+    if (!user) {
         return new NextResponse('user not authenticated');
     }
 
@@ -17,7 +14,7 @@ export async function POST(request: Request) {
         await db.post.create({
             data: {
                 ...data,
-                userId,
+                userId: user.id,
             },
         })
         return new NextResponse('ok');

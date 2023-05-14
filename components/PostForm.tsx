@@ -7,7 +7,7 @@ import { DatePickerWithRange } from '@/components/ui/datePickerWithRange'
 
 const createPost = async (post: Pick<Post, 'content' | 'title' | 'destination' | 'startDate' |'endDate'>) => {
   try {
-    await fetch('/api/post', {
+    await fetch('/api/post/createPost', {
       method: 'POST',
       body: JSON.stringify(post)
     });

@@ -4,7 +4,7 @@ import { SignedIn } from '@clerk/nextjs'
 
 const deletePost = async (id: number) => {
     try {
-        await fetch(`/api/post?id=${id}`, {
+        await fetch(`/api/post/deletePost?id=${id}`, {
           method: 'DELETE',
       });
     } catch (error) {

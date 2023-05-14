@@ -1,11 +1,9 @@
-import { auth } from '@clerk/nextjs/app-beta'
+import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
 export async function POST(request: Request) {
     const data = await request.json()
-
-    console.log(data)
 
     try {
         await db.post.create({
@@ -22,7 +20,7 @@ export async function POST(request: Request) {
 // only logged in users can update posts
 // todo: should add auth to delete request 
 export async function DELETE(request: Request) {
-    const { user } = auth();
+    const { user } = auth()
     const id = parseInt(request.url.split('?id=')[1]);
 
     if(!id && !user) {

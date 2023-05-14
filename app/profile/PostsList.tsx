@@ -1,5 +1,5 @@
 "use client"
-import { Fragment } from 'react'
+import { Fragment, Suspense } from 'react'
 import useSWR from 'swr'
 import { Post as PostType } from '@/db'
 import { fetcher } from '@/lib/utils'

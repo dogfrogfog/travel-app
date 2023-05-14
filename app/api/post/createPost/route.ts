@@ -15,6 +15,7 @@ export async function POST(request: Request) {
             data: {
                 ...data,
                 userId: user.id,
+                authorDateOfBirth: user.publicMetadata?.dateOfBirth || null,
             },
         })
         return new NextResponse('ok');

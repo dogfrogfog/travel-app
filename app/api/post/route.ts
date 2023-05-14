@@ -1,9 +1,9 @@
-import { NextApiRequest } from "next";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
-export async function POST(request: NextApiRequest) {
+export async function POST(request: Request) {
+    // @ts-ignore
     const { userId } = getAuth(request)
 
     // @ts-ignore
@@ -29,7 +29,8 @@ export async function POST(request: NextApiRequest) {
 
 // only logged in users can update posts
 // todo: should add auth to delete request 
-export async function DELETE(request: NextApiRequest) {
+export async function DELETE(request: Request) {
+    // @ts-ignore
     const { userId } = getAuth(request)
 
     if(!userId) {

@@ -16,13 +16,10 @@ model Post {
   updatedAt   DateTime  @updatedAt
   title       String
   content     String
+  userId      String
   destination String
   startDate   DateTime?
   endDate     DateTime?
 
-  author      String
-  ageGroup    String
-  authorEmail String
-
-  @@unique([title, authorEmail])
+  @@unique([title, userId])
 }

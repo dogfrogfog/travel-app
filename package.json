@@ -9,7 +9,7 @@
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:generate": "prisma generate",
+    "prisma:g": "prisma generate",
     "migrate-dev": "prisma migrate dev --preview-feature",
     "migrate-deploy": "prisma migrate deploy --preview-feature"
   },

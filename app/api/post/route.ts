@@ -1,31 +1,45 @@
-import { auth } from '@clerk/nextjs/app-beta'
+import { NextApiRequest } from "next";
+import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from 'next/server'
 import db from '@/db'
 
-export async function POST(request: Request) {
+export async function POST(request: NextApiRequest) {
+    const { userId } = getAuth(request)
+
+    // @ts-ignore
     const data = await request.json()
 
-    console.log(data)
+    if (!userId) {
+        return new NextResponse('user not authenticated');
+    }
 
     try {
         await db.post.create({
-            data,
+            data: {
+                ...data,
+                userId,
+            },
         })
+        return new NextResponse('ok');
     } catch (error) {
         console.log(error);
         return new NextResponse('error');
     }
-    
-    return new NextResponse('ok');
 }
 
 // only logged in users can update posts
 // todo: should add auth to delete request 
-export async function DELETE(request: Request) {
-    const { user } = auth();
-    const id = parseInt(request.url.split('?id=')[1]);
+export async function DELETE(request: NextApiRequest) {
+    const { userId } = getAuth(request)
 
-    if(!id && !user) {
+    if(!userId) {
+        return new NextResponse('user not authenticated');
+    }
+
+    // @ts-ignore
+    const id = parseInt(request?.url?.split('?id=')[1]);
+
+    if(!id && !userId) {
         return new NextResponse('cant update');
     }
 
@@ -35,10 +49,9 @@ export async function DELETE(request: Request) {
                 id,
             },
         })
+        return new NextResponse('post deleted');
     } catch (error) {
         return new NextResponse('error');
     }
-    
-    return new NextResponse('ok');
 }
 

@@ -1,20 +1,19 @@
 "use client";
-import { useUser } from "@clerk/nextjs"
 import { SignedIn } from '@clerk/nextjs'
 import { DateRange } from "react-day-picker"
 import { Form, Field } from 'react-final-form'
 import { Post } from '@/db'
 import { DatePickerWithRange } from '@/components/ui/datePickerWithRange'
 
-const createPost = async (post: Pick<Post, 'content' | 'title' | 'destination' | 'startDate' |'endDate' | 'userId'>) => {
-    try {
-        await fetch('/api/post', {
-          method: 'POST',
-          body: JSON.stringify(post)
-      });
-    } catch (error) {
-        console.log(error)
-    }
+const createPost = async (post: Pick<Post, 'content' | 'title' | 'destination' | 'startDate' |'endDate'>) => {
+  try {
+    await fetch('/api/post', {
+      method: 'POST',
+      body: JSON.stringify(post)
+    });
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 type PostFormProps = {
@@ -23,21 +22,17 @@ type PostFormProps = {
 
 
 export default function PostForm({ mutate }: PostFormProps) {
-    const { user } = useUser();
-
     return (
         <SignedIn>
             <p className="text-2xl bg-yellow-200">Create new ports</p>
             <CustomForm
                 onSubmit={async (values: Pick<Post, 'title' | 'content' | 'destination'> & { dateRange: DateRange | undefined }) => {
-                  if (user) {
                     const formattedDate = {
                       title: values.title.trim(),
                       content: values.content.trim(),
                       destination: values.destination.trim(),
                       startDate: values.dateRange?.from || null,
                       endDate: values.dateRange?.to || null,
-                      userId: user.id,
                     }
                       try {
                         await createPost(formattedDate)
@@ -46,7 +41,6 @@ export default function PostForm({ mutate }: PostFormProps) {
                         console.error(error)
                       }
                 }}
-              }
             />
         </SignedIn>
     )

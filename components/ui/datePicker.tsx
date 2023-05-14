@@ -14,6 +14,8 @@ import {
 
 // @ts-ignore
 export function DatePicker({ onSelect, value }: React.HTMLAttributes) {
+  const date = value ? new Date(value) : undefined
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -25,13 +27,13 @@ export function DatePicker({ onSelect, value }: React.HTMLAttributes) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {value ? format(new Date(value), "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={value}
+          selected={date}
           onSelect={onSelect}
           initialFocus
         />

@@ -2,20 +2,15 @@
 import { Form, Field } from 'react-final-form'
 import { DateRange } from "react-day-picker"
 import { Input } from '@/components/ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { DatePickerWithRange } from "@/components/ui/datePickerWithRange"
 import { Dispatch, SetStateAction } from 'react'
 
+type FiltersType = { title?:  string, tripDateRange?: DateRange,  ageFrom?: number, ageTo?: number } | undefined
+
 type FiltersProps = {
-    filters?: { title?:  string, dateRange?: DateRange },
-    setFilters: Dispatch<SetStateAction<{ title?:  string, dateRange?: DateRange } | undefined>>,
+    filters?: FiltersType,
+    setFilters: Dispatch<SetStateAction<FiltersType>>,
 }
 
 export default function Filters({ filters, setFilters }: FiltersProps) {
@@ -31,49 +26,27 @@ export default function Filters({ filters, setFilters }: FiltersProps) {
                     />
                     <DatePickerWithRange
                         className='rounded bg-slate-300 w-[300px] mr-2'
-                        onSelect={(dateRange) => setFilters(v => ({ ...v, dateRange }) as any)}
+                        onSelect={(tripDateRange) => setFilters(v => ({ ...v, tripDateRange }) as any)}
+                    />
+                    <Input
+                        className='rounded bg-slate-300 w-[100px] mr-2'
+                        type="number"
+                        placeholder='Age from'
+                        min={0}
+                        max={99}
+                        onChange={(event) => setFilters(v => ({ ...v, ageFrom: parseInt(event.target.value) || undefined }))}
+                        />
+                    <Input
+                        className='rounded bg-slate-300 w-[100px] mr-2'
+                        type="number"
+                        placeholder='Age to'
+                        min={0}
+                        max={99}
+                        value={filters?.ageTo}
+                        onChange={(event) => setFilters(v => ({ ...v, ageTo: parseInt(event.target.value) || undefined }))}
                     />
                 </div>
             </div>
-            {/* <FiltersForm
-                onSubmit={(values: any) => {
-                    console.log(values);
-
-                }}
-            /> */}
-            {/* <Select>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Country, City" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="NY">NY</SelectItem>
-                    <SelectItem value="Chicago">Chicago</SelectItem>
-                    <SelectItem value="Boston">Boston</SelectItem>
-                </SelectContent>
-            </Select> */}
-            {/* <Select>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Age range" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="1">18-24</SelectItem>
-                    <SelectItem value="2">24-30</SelectItem>
-                    <SelectItem value="3">30-40</SelectItem>
-                    <SelectItem value="4">40-50+</SelectItem>
-                </SelectContent>
-            </Select> */}
-            {/* <Select>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Sex" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="1">Male</SelectItem>
-                    <SelectItem value="2">Female</SelectItem>
-                    <SelectItem value="3">Custom</SelectItem>
-                    <SelectItem value="4">Prefer not to say</SelectItem>
-                </SelectContent>
-            </Select> */}
-            {/* </div> */}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { currentUser } from '@clerk/nextjs/app-beta'
+import { currentUser, SignIn } from '@clerk/nextjs/app-beta'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import ListMenu from './ListMenu'
 
@@ -13,7 +13,7 @@ export function TypographyH1({ children }: { children: React.ReactNode }) {
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
     const user = await currentUser();
 
-    return (
+    return user ? (
         <div className='flex p-12'>
             <div className='w-48 mr-12'>
                 <Avatar className="w-48 h-48 mb-4">
@@ -29,5 +29,5 @@ export default async function ProfileLayout({ children }: { children: React.Reac
                 {children}
             </div>
         </div>
-    )
+    ) : <SignIn signUpUrl='/sign-up' />;
 }

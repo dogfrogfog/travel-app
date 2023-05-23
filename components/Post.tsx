@@ -9,7 +9,7 @@ type PostProps = {
 
 export default function Post({ post }: PostProps) {
     return (
-        <div className="relative mb-4 p-2 border-[1px] border-black flex">
+        <div className="relative mb-24 p-2 border-[1px] border-black flex">
             <div className='w-2/3'>
                 <div className='absolute top-[-50px] left-[-50px] w-[150px] h-[150px] bg-white rounded-full border-[1px] border-black'>
                     avatar

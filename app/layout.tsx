@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body>
+        <body className='bg-amber-50'>
           {/* @ts-expect-error Async Server Component */}
           <Header />
           <main className='container m-auto'>

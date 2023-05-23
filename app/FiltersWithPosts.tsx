@@ -14,9 +14,6 @@ type FiltersWithPostsProps = {
 export default function FiltersWithPosts({ allPosts }: FiltersWithPostsProps) {
     const [filters, setFilters] = useState<undefined | { title?: string; tripDateRange?: DateRange, ageFrom?: number, ageTo?: number }>();
 
-    console.log(filters?.ageFrom, differenceInCalendarYears(allPosts[0].authorDateOfBirth, new Date()))
-    console.log(filters?.ageTo, differenceInCalendarYears(allPosts[0].authorDateOfBirth, new Date()))
-
     const filteredPosts = allPosts
         .filter(v => filters?.title ? v.title.toLowerCase().includes(filters.title.toLowerCase()) : true)
         .filter(v => filters?.tripDateRange?.from && v.startDate ? v.startDate >= filters.tripDateRange.from : true)
@@ -26,10 +23,11 @@ export default function FiltersWithPosts({ allPosts }: FiltersWithPostsProps) {
 
     return (
         <div>
-            <Title>Filters</Title>
             <Filters filters={filters} setFilters={setFilters} />
-            <Title>all posts</Title>
-            {filteredPosts.map(post => <Post key={post.id} post={post} />)}
+            <div className='mt-24'>
+                <Title>all posts</Title>
+                {filteredPosts.map(post => <Post key={post.id} post={post} />)}
+            </div>
         </div>
     )
 }

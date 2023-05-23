@@ -22,10 +22,12 @@ export default function FiltersWithPosts({ allPosts }: FiltersWithPostsProps) {
         .filter(v => filters?.ageTo && v.authorDateOfBirth ? differenceInCalendarYears(v.authorDateOfBirth, new Date()) <= filters.ageTo : true)
 
     return (
-        <div>
+        <div className='w-4/5 m-auto'>
             <Filters filters={filters} setFilters={setFilters} />
             <div className='mt-24'>
-                <Title>all posts</Title>
+                <div className='flex justify-end mb-4'>
+                    <span className='font-bold text-xl'>Latest</span>
+                </div>
                 {filteredPosts.map(post => <Post key={post.id} post={post} />)}
             </div>
         </div>
